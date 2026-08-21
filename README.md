@@ -91,10 +91,11 @@ Modern-Calculator/
 ├── assets/
 │   └── Calculator.png
 │
+├──README.md
 ├── index.html
 ├── style.css
-├── script.js
-└── README.md
+└──script.js
+
 ```
 
 ### File Description
@@ -103,10 +104,11 @@ Modern-Calculator/
 | ---------------- | -------------------------------------------------------------------- |
 | `assets/`        | Contains images and other project assets                             |
 | `Calculator.png` | Preview image of the calculator                                      |
+| `README.md`      | Project documentation                                                |
 | `index.html`     | Main HTML structure of the calculator                                |
 | `style.css`      | Styling, responsive layout, themes, and visual effects               |
 | `script.js`      | Calculator logic, keyboard support, validation, and theme management |
-| `README.md`      | Project documentation                                                |
+
 
 ---
 
@@ -303,7 +305,3 @@ Several accessibility features have been included:
 If you like this project, consider giving the repository a **star ⭐** on GitHub.
 
 ---
-
-<p align="center">
-  Made with ❤️ by <strong>Sreyan Sarkar</strong>
-</p>
