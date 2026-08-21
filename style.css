@@ -1,0 +1,394 @@
+/* =========================================================
+   Modern Calculator
+   Author: Sreyan Sarkar
+   ========================================================= */
+
+/* ---------- Root Variables ---------- */
+
+:root {
+    --background-start: #3b0764;
+    --background-end: #020617;
+
+    --calculator-bg: rgba(15, 23, 42, 0.95);
+    --display-bg: rgba(2, 6, 23, 0.75);
+
+    --button-bg: #1e293b;
+    --button-hover: #334155;
+    --button-active: #475569;
+
+    --operator-bg: #f97316;
+    --operator-hover: #fb923c;
+
+    --equals-bg: #22c55e;
+    --equals-hover: #4ade80;
+
+    --function-bg: #475569;
+    --function-hover: #64748b;
+
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+
+    --border-color: rgba(255, 255, 255, 0.08);
+
+    --shadow:
+        0 25px 60px rgba(0, 0, 0, 0.45),
+        0 0 40px rgba(139, 92, 246, 0.15);
+
+    --transition: 0.2s ease;
+}
+
+/* ---------- Light Theme ---------- */
+
+body.light-theme {
+    --background-start: #dbeafe;
+    --background-end: #f8fafc;
+
+    --calculator-bg: rgba(255, 255, 255, 0.96);
+    --display-bg: #f1f5f9;
+
+    --button-bg: #e2e8f0;
+    --button-hover: #cbd5e1;
+    --button-active: #94a3b8;
+
+    --function-bg: #cbd5e1;
+    --function-hover: #94a3b8;
+
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+
+    --border-color: rgba(15, 23, 42, 0.08);
+
+    --shadow:
+        0 25px 60px rgba(15, 23, 42, 0.18),
+        0 0 40px rgba(59, 130, 246, 0.12);
+}
+
+/* ---------- Global Reset ---------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(168, 85, 247, 0.45),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            var(--background-start),
+            var(--background-end)
+        );
+
+    color: var(--text-primary);
+    transition:
+        background var(--transition),
+        color var(--transition);
+
+    padding: 20px;
+}
+
+/* ---------- Calculator Container ---------- */
+
+.calculator-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ---------- Calculator ---------- */
+
+.calculator {
+    width: min(100%, 380px);
+    padding: 22px;
+
+    background: var(--calculator-bg);
+
+    border: 1px solid var(--border-color);
+    border-radius: 28px;
+
+    box-shadow: var(--shadow);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    transition:
+        background var(--transition),
+        box-shadow var(--transition);
+}
+
+/* ---------- Header ---------- */
+
+.calculator-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+.calculator-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+}
+
+.theme-toggle {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+
+    background: var(--button-bg);
+    color: var(--text-primary);
+
+    font-size: 1rem;
+    cursor: pointer;
+
+    transition:
+        background var(--transition),
+        transform var(--transition);
+}
+
+.theme-toggle:hover {
+    background: var(--button-hover);
+    transform: rotate(20deg);
+}
+
+.theme-toggle:active {
+    transform: scale(0.92);
+}
+
+/* ---------- Display ---------- */
+
+.display-container {
+    width: 100%;
+    min-height: 120px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    padding: 18px;
+
+    margin-bottom: 18px;
+
+    background: var(--display-bg);
+
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.previous-display {
+    min-height: 22px;
+
+    color: var(--text-secondary);
+
+    font-size: 0.85rem;
+    text-align: right;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.display {
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: var(--text-primary);
+
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(2rem, 8vw, 2.8rem);
+    font-weight: 500;
+
+    text-align: right;
+
+    padding: 0;
+}
+
+.display::selection {
+    background: transparent;
+}
+
+/* ---------- Buttons Grid ---------- */
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+/* ---------- General Button ---------- */
+
+.button {
+    min-height: 68px;
+
+    border: none;
+    border-radius: 18px;
+
+    background: var(--button-bg);
+    color: var(--text-primary);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    user-select: none;
+
+    transition:
+        background var(--transition),
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+.button:hover {
+    background: var(--button-hover);
+    transform: translateY(-2px);
+}
+
+.button:active {
+    background: var(--button-active);
+    transform: scale(0.95);
+}
+
+/* ---------- Function Buttons ---------- */
+
+.button.function {
+    background: var(--function-bg);
+    color: var(--text-primary);
+}
+
+.button.function:hover {
+    background: var(--function-hover);
+}
+
+/* ---------- Operator Buttons ---------- */
+
+.button.operator {
+    background: var(--operator-bg);
+    color: #ffffff;
+}
+
+.button.operator:hover {
+    background: var(--operator-hover);
+}
+
+/* ---------- Equals Button ---------- */
+
+.button.equals {
+    background: var(--equals-bg);
+    color: #ffffff;
+}
+
+.button.equals:hover {
+    background: var(--equals-hover);
+}
+
+/* ---------- Zero Button ---------- */
+
+.button.zero {
+    grid-column: span 2;
+}
+
+/* ---------- Focus Accessibility ---------- */
+
+.button:focus-visible,
+.theme-toggle:focus-visible {
+    outline: 3px solid rgba(59, 130, 246, 0.8);
+    outline-offset: 3px;
+}
+
+/* ---------- Error State ---------- */
+
+.display.error {
+    color: #ef4444;
+    font-size: 1.7rem;
+}
+
+/* ---------- Responsive Design ---------- */
+
+@media (max-width: 420px) {
+    body {
+        padding: 12px;
+    }
+
+    .calculator {
+        padding: 16px;
+        border-radius: 22px;
+    }
+
+    .buttons {
+        gap: 9px;
+    }
+
+    .button {
+        min-height: 62px;
+        border-radius: 15px;
+    }
+
+    .display-container {
+        min-height: 105px;
+        padding: 14px;
+    }
+}
+
+@media (max-width: 330px) {
+    .calculator {
+        padding: 12px;
+    }
+
+    .buttons {
+        gap: 7px;
+    }
+
+    .button {
+        min-height: 55px;
+        font-size: 1rem;
+    }
+
+    .display {
+        font-size: 2rem;
+    }
+}
+
+/* ---------- Reduced Motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+    }
+}
+```
